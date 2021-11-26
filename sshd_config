@@ -1,0 +1,9 @@
+Port 2222
+PidFile ~/sshd.pid
+
+PasswordAuthentication no
+Subsystem       sftp    /usr/lib/openssh/sftp-server
+
+HostKey ~/etc/ssh/ssh_host_rsa_key
+HostKey ~/etc/ssh/ssh_host_ecdsa_key
+HostKey ~/etc/ssh/ssh_host_ed25519_key

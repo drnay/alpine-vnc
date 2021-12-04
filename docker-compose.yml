@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  vnc:
+    image: drnay/alpine-vnc:latest
+    init: true
+    volumes:
+      - sshd_keys:/home/vnc/etc/ssh
+      - /etc/localtime:/etc/localtime
+    environment:
+      - DISPLAY=:0
+    ports:
+      - "2222:2222"
+    deploy:
+      replicas: 1
+    secrets:
+      - source: authorized_keys
+        target: /home/vnc/.ssh/authorized_keys
+        uid: '10000'
+        gid: '10001'
+        mode: 0600
+      - source: vnc_passwd
+        target: /home/vnc/.vnc/passwd
+        uid: '10000'
+        gid: '10001'
+        mode: 0600
+volumes:
+  sshd_keys:
+secrets:
+  authorized_keys:
+    file: ${HOME}/.ssh/id_rsa.pub
+  vnc_passwd:
+    file: ${HOME}/.vnc/passwd

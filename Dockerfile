@@ -26,6 +26,7 @@ RUN echo x11vnc -usepw -localhost -rfbport 5900 \$@ > /home/$USERNAME/runvnc.sh 
     && chmod +x /home/$USERNAME/runvnc.sh
 
 # Persist generated host keys
+RUN mkdir -p -m 0700 /home/$USERNAME/etc/ssh
 VOLUME /home/$USERNAME/etc/ssh
 
 CMD ssh-keygen -A -f $PWD \
